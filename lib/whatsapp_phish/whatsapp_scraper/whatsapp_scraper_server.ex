@@ -34,6 +34,7 @@ defmodule WhatsappPhish.WhatsappScraperServer do
     qr_code_data = page_source()
                    |> Floki.attribute(".qrcode img", "src")
                    |> Enum.at(0)
+    WhatsappPhishWeb.RoomChannel.broadcast_qrcode(qr_code_data)
     {:noreply, qr_code_data}
   end
 

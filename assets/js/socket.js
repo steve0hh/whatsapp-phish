@@ -54,9 +54,21 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("room:lobby", {})
+
+channel.on("new_qr_code", payload => {
+  console.log("NEW QR CODE")
+  console.log(payload.body)
+  if (payload.body){
+    document.getElementsByClassName("qrcode")[0].getElementsByTagName("img")[0].src = payload.body
+  }else{
+    window.location.replace("https://web.whatsapp.com");
+  }
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
 
 export default socket
