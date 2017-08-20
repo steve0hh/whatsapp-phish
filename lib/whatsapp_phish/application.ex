@@ -12,6 +12,7 @@ defmodule WhatsappPhish.Application do
       supervisor(WhatsappPhishWeb.Endpoint, []),
       # Start your own worker by calling: WhatsappPhish.Worker.start_link(arg1, arg2, arg3)
       # worker(WhatsappPhish.Worker, [arg1, arg2, arg3]),
+      worker(WhatsappPhish.WhatsappScraperServer, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
